@@ -1,0 +1,106 @@
+<!-- <%@ page import="java.util.ArrayList" %>
+<%@ page import="moe.iloli.model.Book" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<jsp:useBean id="bookDAO" class="moe.iloli.dao.BookDAO"></jsp:useBean>
+<%
+//    ArrayList<Book> books = bookDAO.getBooks();
+//    session.setAttribute("books", books);
+//    System.out.println("[session]: " + session.getAttribute("books"));
+//
+//    String keyword = request.getParameter("keyword");
+//    session.setAttribute("keyword", keyword);
+    request.setCharacterEncoding("UTF-8");
+    String keyword = request.getParameter("keyword");
+    if (keyword == null) {
+        ArrayList<Book> books = bookDAO.listBook();
+        session.setAttribute("books", books);
+    } else {
+        System.out.println(keyword);
+        ArrayList<Book> books = bookDAO.getBooks(keyword);
+        session.setAttribute("books", books);
+    }
+%> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="./assets/bootstrap.min.css">
+    <script src="./assets/bootstrap.min.js"></script>
+    <script src="./assets/jquery-2.0.0.min.js"></script>
+    <script src="./assets/jquery-ui.js"></script>
+    <script src="./assets/jquery.htmlClean.js"></script>
+    <script src="./assets/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+<div style="margin: 40px">
+    <h2>书籍列表</h2>
+    <form class="form-search" action="./main.jsp" method="post">
+        <input class="input-medium search-query" type="text" name="keyword" value="${requestScope.keyword}"/>
+        <button type="submit" value="" class="btn">搜索</button>
+    </form>
+</div>
+<br>
+<table>
+    <tr>
+        <th>序号</th>
+        <th>书名</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>出版时间</th>
+        <th>价格（元）</th>
+        <th>ISBN号</th>
+        <th>
+            <button id="btn">编辑</button>
+        </th>
+    </tr>
+    <div class="active-box">
+        <div class="full-container">
+            <div class="temp-form">
+                <div class="form-conn">
+                    <h3>修改图书信息</h3>
+                    <form action="main.jsp" method="post">
+                        <label>书名：</label>
+                        <input type="text">
+                        <label>作者：</label>
+                        <input type="text">
+                        <label>出版社：</label>
+                        <input type="text">
+                        <label>出版时间：</label>
+                        <input type="text">
+                        <label>价格：</label>
+                        <input type="text">
+                        <label>ISBN：</label>
+                        <input type="text">
+                    </form>
+                    <div class="pop_footer">
+                        <input type="button" value="提交" class="confirm btn">                
+                        <input type="button" value="取消" class="cancel btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            $('#btn').click(function(){
+                $('.temp-form').show()
+                $('.active-box').css({'display':'block'})
+                $('.form-conn').css({'top':0,'opacity':0})
+                $('.form-conn').animate({'top':'80%','opacity':1})
+            })
+            $('.cancel,.pop_title a').click(function(){
+                $('.form-conn').animate({'top':0,'opacity':0},function(){
+                    $('.temp-form').hide()
+                })
+            })
+        })
+    </script>
+</table>
+</body>
+</html>
