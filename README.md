@@ -19,7 +19,7 @@
 
 #### 密码输入错误啊，操
 
-![image-20230419222200100](D:\Codes\Github Repository\EasyJava_BookSystem\images\image-20230419222200100.png)
+![image-20230419222200100](.\images\image-20230419222200100.png)
 
 #### 朋友是一个友好的的图书页面
 
